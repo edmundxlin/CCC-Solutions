@@ -1,0 +1,100 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
+public class Main {
+	
+	public static boolean checkFix(String word1, String word2) {
+		boolean wordIs = false;
+		if (word1.length()>=word2.length()) {
+		for(int i = 0;i<word2.length();i++) {
+			
+			if(word2.charAt(i)==word1.charAt(i)) {
+				wordIs = true;
+			}
+			else if (word2.charAt(i)!=word1.charAt(i)) {
+				wordIs= false;
+				break;
+			}
+		}
+		}
+		else if (word2.length()>word1.length()) {
+			for(int i = 0;i<word1.length();i++) {
+				
+				if(word1.charAt(i)==word2.charAt(i)) {
+					wordIs = true;
+				}
+				else {
+					wordIs= false;
+					break;
+				}
+			}
+		}
+			else if (word1.length()>=word2.length()) {
+				for(int i = word2.length()-1;i>=0;i--) {
+					
+					if(word2.charAt(i)==word1.charAt(i)) {
+						wordIs = true;
+					}
+					else if (word2.charAt(i)!=word1.charAt(i)) {
+						wordIs= false;
+						break;
+					}
+				}
+				}
+				else if (word2.length()>word1.length()) {
+					for(int i = word1.length()-1;i>=0;i--) {
+						
+						if(word1.charAt(i)==word2.charAt(i)) {
+							wordIs = true;
+						}
+						else {
+							wordIs= false;
+							break;
+						}
+					}
+			}
+		
+		return wordIs;
+	}
+	
+	public static void iterateList(ArrayList<String> words) {
+		int b=1;
+		int c=2;
+		boolean isFix = false;
+		for(int i=0;i<words.size();i+=3) {
+			if(checkFix(words.get(i), words.get(b))) {
+				isFix = true;
+			}
+			else if(checkFix(words.get(i), words.get(c))) {
+				isFix = true;
+			}
+			else if(checkFix(words.get(c), words.get(b))) {
+				isFix = true;
+			}
+			if(isFix) {
+				System.out.println("No");
+			}
+			else if(!isFix) {
+				System.out.println("Yes");
+			}
+			b+=3;
+			c+=3;
+			isFix=false;
+		}
+	}
+	
+	public static void main(String[] args) throws NumberFormatException, IOException {
+		BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+		int n = Integer.parseInt(input.readLine());
+		ArrayList<String> words = new ArrayList<String>();
+		for(int i=0;i<n*3;i++) {
+			String wordIn =  input.readLine();
+			words.add(wordIn);
+		}
+		iterateList(words);
+
+	}
+
+}
